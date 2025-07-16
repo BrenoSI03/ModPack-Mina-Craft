@@ -3,28 +3,28 @@ setlocal EnableDelayedExpansion
 :: -----------------------------------------------------------
 ::  Atualizador ModPack-Mina-Craft
 :: -----------------------------------------------------------
-::  - Detecta se já está dentro do repo
+::  - Detecta se jah está dentro do repo
 ::  - pull ou clone/zip
 ::  - copia mods + config para .minecraft
 :: -----------------------------------------------------------
 
-rem === CONFIGURÁVEIS =======================================
+rem === CONFIGURAVEIS =======================================
 set "REPO_URL=https://github.com/BrenoSI03/ModPack-Mina-Craft.git"
 set "ZIP_URL=https://github.com/BrenoSI03/ModPack-Mina-Craft/archive/refs/heads/main.zip"
 set "REPO_NAME=ModPack-Mina-Craft"
 set "MC_DIR=%APPDATA%\.minecraft"
 rem =========================================================
 
-rem --------- Onde está/ficará o repositório ---------------
+rem --------- Onde estah/ficarah o repositório ---------------
 set "SCRIPT_DIR=%~dp0"
 if exist "%SCRIPT_DIR%.git" (
-    rem Script dentro do repo já clonado
+    rem Script dentro do repo jah clonado
     set "BASE_DIR=%SCRIPT_DIR%"
 ) else if exist "%SCRIPT_DIR%%REPO_NAME%\mods" (
-    rem Script fora, mas repo já clonado ao lado
+    rem Script fora, mas repo jah clonado ao lado
     set "BASE_DIR=%SCRIPT_DIR%%REPO_NAME%"
 ) else (
-    rem Não há repo ainda; usaremos subpasta ao lado do script
+    rem Nao ha repo ainda; usaremos subpasta ao lado do script
     set "BASE_DIR=%SCRIPT_DIR%%REPO_NAME%"
 )
 
@@ -34,7 +34,7 @@ echo  Pasta do repo: %BASE_DIR%
 echo =====================================================
 echo.
 
-rem --------- Git disponível? ------------------------------
+rem --------- Git disponivel? ------------------------------
 where git >nul 2>nul
 if !ERRORLEVEL! EQU 0 (
     set "GIT_OK=1"
@@ -42,9 +42,9 @@ if !ERRORLEVEL! EQU 0 (
     set "GIT_OK=0"
 )
 
-rem --------- Se a pasta já existe -------------------------
+rem --------- Se a pasta jah existe -------------------------
 if exist "%BASE_DIR%\mods" (
-    echo Repositório já presente.
+    echo Repositorio jah presente.
     if "%GIT_OK%"=="1" (
         echo Fazendo git pull...
         pushd "%BASE_DIR%"
@@ -57,9 +57,9 @@ if exist "%BASE_DIR%\mods" (
         del "%BASE_DIR%\repo.zip"
     )
 ) else (
-    rem --------- Pasta não existe ainda -------------------
+    rem --------- Pasta nao existe ainda -------------------
     if "%GIT_OK%"=="1" (
-        echo Clonando repositório...
+        echo Clonando repositorio...
         git clone %REPO_URL% "%BASE_DIR%"
     ) else (
         echo Git nao encontrado – baixando ZIP...
@@ -77,6 +77,6 @@ echo Copiando config...
 xcopy /E /I /Y "%BASE_DIR%\config" "%MC_DIR%\config" >nul
 
 echo.
-echo ✅  Mods e configs atualizados com sucesso!
+echo :D  Mods e configs atualizados com sucesso!
 pause
 endlocal
